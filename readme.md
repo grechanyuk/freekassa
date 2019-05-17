@@ -19,6 +19,14 @@ $ composer require grechanyuk/freekassa
 $ php artisan vendor:publish --provider="Grechanyuk\FreeKassa\FreeKassaServiceProvider" --tag="freekassa.config"
 ```
 
+Из конфигурационного файла ссылку для принятия уведомлений о статусах платежа от FreeKassa необходимо добавить в исключения CSRF защиты.
+Для этого добавьте в файл `App\Http\Middleware\VerifyCsrfToken`:
+``` php
+protected $except = [
+        '/api/freekassa/notificate'
+    ];
+```
+
 В файл `Kernel.php` добавьте новый Middleware, в секцию `protected $routeMiddleware`:
 ``` php
 'freekassa' => \Grechanyuk\FreeKassa\Middlewares\FreeKassaNotificationChecker::class,
