@@ -4,6 +4,7 @@ namespace Grechanyuk\FreeKassa;
 
 use Grechanyuk\FreeKassa\Entities\Payment;
 use Grechanyuk\FreeKassa\Factories\ApiFactory;
+use Illuminate\Support\Arr;
 
 class FreeKassa extends ApiFactory
 {
@@ -40,5 +41,17 @@ class FreeKassa extends ApiFactory
     public function checkNotificationSign(string $sign, float $amount, int $order_id) :bool
     {
         return $this->getApi()->checkNotificationSign($sign, $amount, $order_id);
+    }
+
+    public function getCurrencyISO(int $currency_id): string
+    {
+        return Arr::where(config('freekassaCurrency.currencies'), function ($value, $key) use($currency_id) {
+            return $value['ID'] === $currency_id;
+        })[0] ?? null;
+    }
+
+    public function getCurrencyList(): array
+    {
+        return config('freekassaCurrency.currencies');
     }
 }

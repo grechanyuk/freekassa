@@ -4,6 +4,7 @@
 namespace Grechanyuk\FreeKassa\Entities;
 
 
+use Grechanyuk\FreeKassa\Facades\FreeKassa;
 use Illuminate\Support\Arr;
 
 class Notification
@@ -23,7 +24,7 @@ class Notification
         $this->order_id = $data['MERCHANT_ORDER_ID'];
         $this->email = $data['P_EMAIL'];
         $this->telephone = $data['P_PHONE'];
-        $this->currency = $data['CUR_ID'];
+        $this->currency = FreeKassa::getCurrencyISO($data['CUR_ID']);
         $this->us_keys = Arr::where($data, function ($value, $key) {
             return strpos($key, 'us_') === 0;
         });

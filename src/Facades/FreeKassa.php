@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static getPaymentInfo(int $payment_id)
  * @method static newPayment(Payment|array $payment, int $currency = null, string $locale = null)
  * @method static checkNotificationSign(string $sign, float $amount, int $order_id)
+ * @method static getCurrencyISO(int $currency_id)
+ * @method static getCurrencyList()
  */
 class FreeKassa extends Facade
 {
