@@ -45,9 +45,9 @@ class FreeKassa extends ApiFactory
 
     public function getCurrencyISO(int $currency_id): string
     {
-        return Arr::where(config('freekassaCurrency.currencies'), function ($value, $key) use($currency_id) {
+        return data_get(Arr::where(config('freekassaCurrency.currencies'), function ($value, $key) use($currency_id) {
             return $value['ID'] === $currency_id;
-        })[0] ?? null;
+        }), '*.ISO')[0] ?? '';
     }
 
     public function getCurrencyList(): array
